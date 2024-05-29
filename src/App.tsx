@@ -9,7 +9,7 @@ const jsonSnapshot = _jsonSnapshot as TLStoreSnapshot
 const LOAD_SNAPSHOT_WITH_INITIAL_DATA = true
 
 //[1]
-export default function SnapshotExample() {
+export default function App() {
 	if (LOAD_SNAPSHOT_WITH_INITIAL_DATA) {
 		return (
 			<div className="tldraw__editor">
