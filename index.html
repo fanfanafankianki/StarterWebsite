@@ -1,13 +1,691 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>tldraw Vite template</title>
-	</head>
-	<body>
-		<div id="root"></div>
-		<script type="module" src="/src/main.tsx"></script>
-	</body>
-</html>
+	<!doctype html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8" />
+			<link rel="icon" href="/favicon.ico" />
+			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			<title>tldraw Vite template</title>
+				<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+				<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+				<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+			<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+			<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+			<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+		
+			<style>
+				body {
+					background-color: #112240 !important; /* Kolor tła dla całej strony */
+					color: white;
+					margin: 0;
+					font-family: 'Roboto', sans-serif; /* Zmiana czcionki na Roboto */
+				}
+				.sf-mono {
+					font-family: 'SF Mono', monospace;
+				}
+				.navbar-custom {
+					background-color: #112240 !important;
+				}
+				.nav-link-custom {
+					color: #ffcc00 !important; /* Domyślny kolor tekstu na żółty */
+					font-size: 12px;
+
+				}
+				.nav-link-number {
+					color: #ffcc00 !important; /* Zielony kolor dla "1." */
+					font-size: 12px;
+					margin: 5px;
+				}
+				.nav-link-text {
+					color: #5A6F95 !important; /* Fioletowy kolor dla "About" */
+					font-size: 12px;
+				}
+				.nav-link-text:hover {
+					color: #CAD6EA !important; /* Fioletowy kolor dla "About" */
+					font-size: 12px;
+				}
+				.navbar-nav {
+					margin-right: 200px; /* Odległość od prawej strony */
+				}
+				.navbar-nav .nav-item {
+					margin-left: 50px; /* Odstęp między elementami listy */
+				}
+				.header {
+					padding: 40px 0;
+				}
+
+				.navbar-brand {
+					margin-left: 40px; /* Margines od lewej strony */
+				}
+				.navbar-brand svg {
+					width: 39px; /* Szerokość kwadratu */
+					height: 45px; /* Wysokość kwadratu */
+				}
+				.navbar-brand rect {
+					fill: #112240; /* Kolor tła kwadratu */
+					stroke: #ffcc00; /* Kolor obwódki kwadratu */
+					stroke-width: 2; /* Szerokość obwódki kwadratu */
+				}
+				.navbar-brand text {
+					fill: #ffcc00; /* Kolor tekstu */
+					font-size: 24px; /* Wielkość czcionki */
+					font-family: 'Roboto', sans-serif; /* Czcionka */
+					dominant-baseline: middle; /* Wyśrodkowanie pionowe tekstu */
+					text-anchor: middle; /* Wyśrodkowanie poziome tekstu */
+				}
+				.scroll-container {
+					padding: 10px;
+					margin: 20px 0;
+					border-radius: 5px;
+					display: flex;
+					justify-content: center;
+					align-items: left;
+					text-align: left;
+					position: relative;
+					overflow: hidden;
+					animation: backgroundMove 5s infinite linear;
+					color: #ffffff;
+				}
+				.scroll-list {
+					display: inline-flex;
+					flex-wrap: nowrap;
+					overflow-x: hidden;
+					padding: 0 20px;
+					width: 1000px;
+				}
+				.scroll-list img {
+					margin: 0 30px;
+					max-width: 120px;
+					max-height: 120px;
+				}
+				.scroll-button {
+					background-color: #ffcc00;
+					border: none;
+					color: black;
+					font-size: 24px;
+					cursor: pointer;
+					margin: 0 10px;
+					padding: 10px 20px;
+					border-radius: 5px;
+				}
+				.scroll-button:hover {
+					background-color: #45a049;
+				}
+				.container {
+					display: flex;
+					flex-direction: column;
+					padding: 15px;
+				}
+
+				.header {
+					border-bottom: 4px solid #CAD6EA;
+					padding: 10px;
+				}
+
+				.content {
+					display: flex;
+					flex: 1;
+				}
+
+				.left,
+				.right {
+					flex: 1;
+					border-right: 2px solid black;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+				}
+
+				.left {
+					justify-content: flex-end;
+					padding-right: 10px;
+				}
+
+				.right {
+					justify-content: flex-start;
+					padding-left: 10px;
+					border-right: none; /* Remove border from the right side */
+				}
+				footer {
+					bottom: 5;
+					width: 100%;
+					background-color: #112240; /* Kolor tła */
+					color: #5A6F95; /* Kolor tekstu */
+					text-align: center; /* Wyśrodkowanie tekstu */
+					padding: 10px;
+					padding-top: 50px; /* Padding */
+					z-index: 10; /* Zapewnia, że stopka jest na wierzchu */
+				}
+
+				.footer svg {
+					margin: 10px 0;
+					width: 35px;
+					height: 35px;
+				}
+				.footer {
+					position: fixed;
+					bottom: 0;
+					width: 60px;
+					background-color: #112240;
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					padding: 10px 0;
+					z-index: 20; /* Zapewnia, że stopka jest na wierzchu */
+				}
+
+				.footer.left {
+					left: 0;
+				}
+
+				.footer.right {
+					right: 0;
+				}
+
+				.footer a {
+					color: #CAD6EA;
+					margin: 10px 0;
+					font-size: 24px;
+					text-decoration: none;
+					transition: color 0.3s;
+				}
+
+				.footer a:hover {
+					color: #ffffff;
+				}
+
+				.footer .line-right {
+					width: 1px;
+					height: 50px;
+					background-color: #CAD6EA;
+					margin-top: 20px;
+				}
+				.footer .line-left {
+					width: 1px;
+					height: 300px;
+					background-color: #CAD6EA;
+					margin-top: 20px;
+				}
+
+				.left,
+				.right {
+					flex: 1;
+					border-right: none;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+				}
+
+				.left {
+					justify-content: flex-end;
+					padding-right: 10px;
+				}
+
+				.right {
+					justify-content: flex-start;
+					padding-left: 10px;
+					border-right: none; /* Remove border from the right side */
+				}
+				.left-aut,
+				.right-aut {
+					flex: 1;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					padding: 20px;
+				}
+				.left-aut {
+					justify-content: flex-end;
+					border-right: 4px solid #CAD6EA;
+				}
+				.right-aut {
+					justify-content: flex-start;
+				}
+				.author {
+					text-align: center;
+					padding: 15px;
+				}
+				.author img {
+					border-radius: 50%;
+					width: 150px;
+					height: 150px;
+					margin-bottom: 10px;
+					border: 2px solid #CAD6EA;
+				}
+				.author-name {
+					font-size: 18px;
+					font-weight: bold;
+					padding: 5px;
+					color: #CAD6EA;
+				}
+				.author-role {
+					font-size: 14px;
+					color: #5A6F95;
+					padding: 5px;
+				}
+
+				.scroller {
+					max-width: 600px;
+				}
+
+				.scroller__inner {
+					padding-block: 1rem;
+					display: flex;
+					flex-wrap: wrap;
+					gap: 1rem;
+				}
+
+				.scroller[data-animated="true"] {
+					overflow: hidden;
+					-webkit-mask: linear-gradient(
+						90deg,
+						transparent,
+						white 20%,
+						white 80%,
+						transparent
+					);
+					mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+				}
+
+				.scroller[data-animated="true"] .scroller__inner {
+					width: max-content;
+					flex-wrap: nowrap;
+					animation: scroll var(--_animation-duration, 40s)
+						var(--_animation-direction, forwards) linear infinite;
+				}
+
+				.scroller[data-direction="right"] {
+					--_animation-direction: reverse;
+				}
+
+				.scroller[data-direction="left"] {
+					--_animation-direction: forwards;
+				}
+
+				.scroller[data-speed="fast"] {
+					--_animation-duration: 20s;
+				}
+
+				.scroller[data-speed="slow"] {
+					--_animation-duration: 60s;
+				}
+
+				@keyframes scroll {
+				to {
+					transform: translate(calc(-50% - 0.5rem));
+				}
+				}
+
+				/* general styles */
+
+				:root {
+					--clr-neutral-100: hsl(0, 0%, 100%);
+					--clr-primary-100: hsl(205, 15%, 58%);
+					--clr-primary-400: hsl(215, 25%, 27%);
+					--clr-primary-800: hsl(217, 33%, 17%);
+					--clr-primary-900: hsl(218, 33%, 9%);
+				}
+
+				html {
+					color-scheme: dark;
+				}
+
+
+				.tag-list {
+					margin: 0;
+					padding-inline: 0;
+					list-style: none;
+				}
+
+				.tag-list li {
+					padding: 1rem;
+					background: var(--clr-primary-400);
+					border-radius: 0.5rem;
+					box-shadow: 0 0.5rem 1rem -0.25rem var(--clr-primary-900);
+				}
+
+				#react-app {
+					position: relative;
+					height: 100%;
+					width: 100%;
+				}
+
+				.grid-container {
+					flex-direction: column;
+					display: grid;
+					grid-template-columns: repeat(2, 1fr);
+					grid-template-rows: repeat(2, auto);
+					gap: 30px; /* Duża odległość między kwadratami */
+					margin: 90 auto;
+				}
+
+				.grid-item {
+					padding: 20px;
+					text-align: left; /* Tekst wyrównany do prawej */
+				}
+
+				.grid-item p {
+					margin: 0;
+				}
+
+				.section-title {
+					color: #5A6F95;
+					padding: 20px;
+				}
+				.section-text-left {
+					color: #CAD6EA;
+					margin-right: 70px; 
+					justify-content: center;
+					text-align: left;	
+				}
+
+				.section-text-right {
+					color: #ffcc00;
+					margin-right: 70px; 
+					justify-content: center;
+					text-align: right;	
+				}
+				.cloud-title {
+					font-size: 24px;
+					font-weight: bold;
+					position: relative;
+					display: inline-block;
+					margin-bottom: 10px;
+					padding-right: 20px; /* Padding po prawej stronie dla odstępu od linii */
+					padding-left: 40px;
+					color: #CAD6EA;
+				}
+
+				.cloud-title::after {
+					content: '';
+					display: block;
+					width: 120%; /* Długość linii trochę dłuższa niż tekst */
+					max-width: 200px; /* Maksymalna szerokość linii */
+					height: 2px;
+					background-color: #CAD6EA;
+					position: absolute;
+					left: 0;
+					bottom: -5px;
+					margin-left: 40px;
+					color: #CAD6EA;
+				}
+				.styled-div {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					padding: 15px;
+					padding-top: 30px;
+					color: #CAD6EA; /* Kolor linku */
+				}
+
+				.styled-div a {
+					border: 2px solid #CAD6EA; /* Czarny border */
+					border-radius: 15px; /* Zaokrąglenie */
+					font-weight: bold; /* Pogrubienie */
+					text-align: center; /* Wyśrodkowanie tekstu */
+					padding: 10px 20px; /* Wewnętrzne marginesy */
+					text-decoration: none; /* Bez podkreślenia linku */
+					color: #CAD6EA; /* Kolor linku */
+				}
+				.loading-screen {
+					position: absolute;
+					width: 100%;
+					height: 100%;
+					background-color: #112240;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					z-index: 1000;
+				}
+
+				.loading-box {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					width: 100px;
+					height: 100px;
+					background-color: #112240;
+					font-weight: bold;
+					text-align: center;
+					text-decoration: none;
+					color: #112240;
+				}
+
+			</style>
+			<script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- Ikony FontAwesome -->
+			</head>
+			<body>
+			<div class="loading-screen">
+				<div class="navbar-brand nav-link-custom" href="#">
+					<svg viewBox="0 0 39 45" class="loading-box">
+						<rect x="0" y="0" width="39" height="45" />
+						<text x="50%" y="50%" text-anchor="middle" dy=".3em">P</text>
+					</svg>
+				</div>
+			</div>
+			<header>
+				<nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+						<div class="container-fluid nav-link-custom">
+								<a class="navbar-brand nav-link-custom" href="#">
+									<svg viewBox="0 0 39 45">
+										<rect x="0" y="0" width="39" height="45" />
+										<text x="50%" y="50%">P</text>
+									</svg>
+								</a>
+								<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+										<span class="navbar-toggler-icon"></span>
+								</button>
+								<div class="collapse justify-content-end navbar-collapse ml-auto" id="navbarNav">
+										<ul class="navbar-nav">
+												<li class="nav-item">
+														<a class="nav-link nav-link-custom sf-mono" href="#"><span class="nav-link-number">01.</span> <span class="nav-link-text">About</span></a>
+												</li>
+												<li class="nav-item">
+														<a class="nav-link nav-link-custom sf-mono" href="#"><span class="nav-link-number">02.</span> <span class="nav-link-text">Project Architecture</span></a>                                                </li>
+												</li>
+												<li class="nav-item">
+														<a class="nav-link nav-link-custom sf-mono" href="#"><span class="nav-link-number">03.</span> <span class="nav-link-text">Technologies</span></a>
+												</li>
+												<li class="nav-item">
+														<a class="nav-link nav-link-custom sf-mono" href="#"><span class="nav-link-number">04.</span> <span class="nav-link-text">Authors</span></a>
+												</li>
+										</ul>
+								</div>
+						</div>
+				</nav>
+			</header>
+
+			<p></p>
+			<p></p>
+			<div class="container">
+				<p></p>
+				<p></p>
+				<h1 class="section-title">About this Project</h1>
+				<p></p>
+				<p></p>
+				<div class="grid-container">
+					<div class="grid-item">
+						<h3>
+							<p class="section-text-left" style="margin-right: 70px; justify-content: center;">
+								This project is a comprehensive DevOps automation pipeline designed to streamline and enhance the continuous integration and continuous deployment (CI/CD) process.
+							</p>
+						</h3>
+					</div>
+					<div class="grid-item">
+						<h5>
+							<p class="section-text-right" style="padding-left: 130px; margin-right: 30px; justify-content: center;">
+								It is tailored for software development teams seeking efficient and reliable methods to build, test, and deploy their applications.
+							</p>
+						</h5>
+					</div>
+					<div class="grid-item">
+						<h3>
+							<p class="section-text-left" style="margin-right: 70px; justify-content: center;">
+								Our solution integrates popular tools and technologies to ensure seamless automation, scalability, and monitoring of software deployments.
+							</p>
+						</h3>
+					</div>
+					<div class="grid-item">
+						<h5>
+							<p class="section-text-right" style="padding-left: 130px; margin-right: 30px; justify-content: center;">
+								Our solution integrates popular tools and technologies to ensure seamless automation, scalability, and monitoring of software deployments.
+							</p>
+						</h5>
+					</div>
+				</div>
+			</div>
+			<p></p>
+			<p></p>
+			<div></div>
+			<div class="container"> 
+				<h1 class="section-title">Project Architecture</h1> 
+				<p></p>
+				<p></p>
+				<div style="text-align: center;">
+					<div>
+						<div id="root">
+							<script type="module" src="/src/main.tsx"></script>
+						</div>
+					</div>
+				</div>
+				<div class="styled-div">
+					<a href="https://example.com">Open all project sites</a>
+				</div>
+				<div class="styled-div">
+					*The link will open several websites. Remember to turn off your pop-up blocker!
+				</div>
+			</div>
+			<div class="container"> 
+				<h1 class="section-title">Used Technologies</h1>
+				<div class="cloud-title">Cloud</div>
+				<div class="scroll-container" style="text-align: center;">
+					<div class="scroll-list scroller" data-speed="fast" id="scroll-list" style="display: inline-flex; flex-wrap: nowrap;">
+						<ul class="scroller__inner">
+							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
+							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
+							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
+							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
+							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
+							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
+							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
+						</ul>
+					</div>
+				</div>
+				<div class="cloud-title">CI/CD</div>
+				<div class="scroll-container" style="text-align: center;">
+					<div class="scroll-list scroller" data-speed="fast" id="scroll-list" style="display: inline-flex; flex-wrap: nowrap;">
+						<ul class="scroller__inner">
+							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
+							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
+							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
+							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
+							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
+							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
+							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="container">
+				<div class="header">
+					<h1 class="section-title">Authors</h1>
+				</div>
+				<div class="content">
+					<div class="left-aut">
+						<div class="author" style="text-align: right;">
+							<img src="https://via.placeholder.com/100" alt="Jan Muszynski">
+							<div class="author-name"><h2>Bartosz G</h2></div>
+							<div class="author-role"><h3>Devops</h3></div>
+						</div>
+					</div>
+					<div class="right-aut">
+						<div class="author" style="text-align: left;">
+							<img src="https://via.placeholder.com/100" alt="Jurek Masa">
+							<div class="author-name"><h2>Jakub G</h2></div>
+							<div class="author-role"><h3>Devops</h3></div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<p></p>
+			<p></p>
+
+			<div class="footer left">
+				<div class="line-left"></div>
+			</div>
+		
+			<div class="footer right">
+				<svg viewBox="0 0 100 100">
+					<polygon points="50,10 90,25 90,75 50,90 10,75 10,25" fill="#112240" stroke="#ffcc00" stroke-width="5"/>
+					<text x="50%" y="50%" dy=".3em" text-anchor="middle" fill="#ffcc00" font-size="40" font-family="Arial">B</text>
+				</svg>
+				<a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+				<svg viewBox="0 0 100 100">
+					<polygon points="50,10 90,25 90,75 50,90 10,75 10,25" fill="#112240" stroke="#ffcc00" stroke-width="5"/>
+					<text x="50%" y="50%" dy=".3em" text-anchor="middle" fill="#ffcc00" font-size="40" font-family="Arial">J</text>
+				</svg>				
+				<a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+				<div class="line-right"></div>
+			</div>
+			<div></div>
+			<footer>
+				<h6>Made by <a href="#">fanfan</a></h6>
+			</footer>
+
+			<script>
+				const scrollers = document.querySelectorAll(".scroller");
+
+				// If a user hasn't opted in for recuded motion, then we add the animation
+				if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+				addAnimation();
+				}
+
+				function addAnimation() {
+				scrollers.forEach((scroller) => {
+					// add data-animated="true" to every `.scroller` on the page
+					scroller.setAttribute("data-animated", true);
+
+					// Make an array from the elements within `.scroller-inner`
+					const scrollerInner = scroller.querySelector(".scroller__inner");
+					const scrollerContent = Array.from(scrollerInner.children);
+
+					// For each item in the array, clone it
+					// add aria-hidden to it
+					// add it into the `.scroller-inner`
+					scrollerContent.forEach((item) => {
+					const duplicatedItem = item.cloneNode(true);
+					duplicatedItem.setAttribute("aria-hidden", true);
+					scrollerInner.appendChild(duplicatedItem);
+					});
+				});
+				}
+				window.addEventListener('load', function() {
+					// Przewinięcie strony na samą górę
+					window.scrollTo(0, 0);
+					const loadingScreen = document.querySelector('.loading-screen');
+					const content = document.querySelector('.content');
+					const body = document.body;
+
+					// Dodanie klasy wyłączającej przewijanie
+					body.classList.add('no-scroll');
+					// Ukryj ekran ładowania po 2 sekundach
+					setTimeout(function() {
+						loadingScreen.style.display = 'none';
+						content.style.display = 'flex';
+						body.classList.remove('no-scroll');
+					}, 2000); // 2000 milisekund = 2 sekundy
+				});
+				// Dodatkowo, przewinięcie na samą górę przy każdym przeładowaniu strony
+				window.onbeforeunload = function () {
+					window.scrollTo(0, 0);
+				};
+			</script>
+
+		</body>
+	</html>
