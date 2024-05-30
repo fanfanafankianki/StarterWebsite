@@ -22,7 +22,7 @@
 					background-color: #112240 !important; /* Kolor tła dla całej strony */
 					color: white;
 					margin: 0;
-					font-family: 'Roboto', sans-serif; /* Zmiana czcionki na Roboto */
+					font-family: 'Roboto', sans-serif !important; /* Zmiana czcionki na Roboto */
 				}
 				.sf-mono {
 					font-family: 'SF Mono', monospace;
@@ -52,7 +52,7 @@
 					margin-right: 200px; /* Odległość od prawej strony */
 				}
 				.navbar-nav .nav-item {
-					margin-left: 50px; /* Odstęp między elementami listy */
+					margin-left: 30px; /* Odstęp między elementami listy */
 				}
 				.header {
 					padding: 40px 0;
@@ -251,8 +251,8 @@
 				}
 				.author img {
 					border-radius: 50%;
-					width: 150px;
-					height: 150px;
+					width: 175px;
+					height: 175px;
 					margin-bottom: 10px;
 					border: 2px solid #CAD6EA;
 				}
@@ -260,12 +260,21 @@
 					font-size: 18px;
 					font-weight: bold;
 					padding: 5px;
+					margin: 10px;
 					color: #CAD6EA;
 				}
 				.author-role {
 					font-size: 14px;
+					color: #ffcc00;
+					padding: 5px;
+					margin: 10px;
+				}
+
+				.author-description {
+					font-size: 14px;
 					color: #5A6F95;
 					padding: 5px;
+					margin: 10px;
 				}
 
 				.scroller {
@@ -397,22 +406,33 @@
 					margin-bottom: 10px;
 					padding-right: 20px; /* Padding po prawej stronie dla odstępu od linii */
 					padding-left: 40px;
-					color: #CAD6EA;
+					color: #5A6F95;
 				}
 
 				.cloud-title::after {
 					content: '';
 					display: block;
 					width: 120%; /* Długość linii trochę dłuższa niż tekst */
-					max-width: 200px; /* Maksymalna szerokość linii */
+					max-width: 350px; /* Maksymalna szerokość linii */
 					height: 2px;
-					background-color: #CAD6EA;
+					background-color: #ffcc00;
 					position: absolute;
 					left: 0;
 					bottom: -5px;
 					margin-left: 40px;
+					color: #ffcc00;
+				}
+				.cloud-text {
+					font-size: 20px;
+					font-weight: bold;
+					position: relative;
+					display: inline-block;
+					margin-right: 350px;
+					padding-right: 20px; /* Padding po prawej stronie dla odstępu od linii */
+					padding-left: 50px;
 					color: #CAD6EA;
 				}
+
 				.styled-div {
 					display: flex;
 					justify-content: center;
@@ -431,6 +451,12 @@
 					text-decoration: none; /* Bez podkreślenia linku */
 					color: #CAD6EA; /* Kolor linku */
 				}
+
+				.styled-div a:hover {
+					color: #ffcc00; /* Kolor linku */
+					background-color: #5A6F95;
+				}
+
 				.loading-screen {
 					position: absolute;
 					width: 100%;
@@ -455,6 +481,42 @@
 					color: #112240;
 				}
 
+				.no-scroll {
+					overflow: hidden !important; /* Klasa do wyłączenia przewijania */
+				}
+				body.no-scroll {
+					overflow: hidden !important;
+				}
+				.line-container {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					margin-top: 90px;
+					margin-bottom: 90px;
+					margin: 30px;
+				}
+
+				.linetxt {
+					height: 3px;
+					background-color: #CAD6EA;
+					flex-grow: 1;
+					margin: 0 10px;
+					margin-top: 90px;
+					border-radius: 5px;
+					margin-bottom: 90px;
+					margin: 30px;
+				}
+
+				.dot {
+					width: 5px;
+					height: 5px;
+					background-color: #CAD6EA;
+					border-radius: 50%;
+					margin-top: 90px;
+					margin-bottom: 90px;
+					margin: 30px;
+				}
+
 			</style>
 			<script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- Ikony FontAwesome -->
 			</head>
@@ -463,7 +525,7 @@
 				<div class="navbar-brand nav-link-custom" href="#">
 					<svg viewBox="0 0 39 45" class="loading-box">
 						<rect x="0" y="0" width="39" height="45" />
-						<text x="50%" y="50%" text-anchor="middle" dy=".3em">P</text>
+						<text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle">P</text>
 					</svg>
 				</div>
 			</div>
@@ -476,8 +538,8 @@
 										<text x="50%" y="50%">P</text>
 									</svg>
 								</a>
-								<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-										<span class="navbar-toggler-icon"></span>
+								<button class="navbar-toggler" style="background-color: #5A6F95;" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+										<span class="navbar-toggler-icon" style="background-color: #5A6F95;"></span>
 								</button>
 								<div class="collapse justify-content-end navbar-collapse ml-auto" id="navbarNav">
 										<ul class="navbar-nav">
@@ -491,7 +553,10 @@
 														<a class="nav-link nav-link-custom sf-mono" href="#"><span class="nav-link-number">03.</span> <span class="nav-link-text">Technologies</span></a>
 												</li>
 												<li class="nav-item">
-														<a class="nav-link nav-link-custom sf-mono" href="#"><span class="nav-link-number">04.</span> <span class="nav-link-text">Authors</span></a>
+													<a class="nav-link nav-link-custom sf-mono" href="#"><span class="nav-link-number">04.</span> <span class="nav-link-text">Git</span></a>
+												</li>
+												<li class="nav-item">
+														<a class="nav-link nav-link-custom sf-mono" href="#"><span class="nav-link-number">05.</span> <span class="nav-link-text">Authors</span></a>
 												</li>
 										</ul>
 								</div>
@@ -543,6 +608,7 @@
 			<div></div>
 			<div class="container"> 
 				<h1 class="section-title">Project Architecture</h1> 
+				<div class="cloud-title">Simplified diagram of project</div>
 				<p></p>
 				<p></p>
 				<div style="text-align: center;">
@@ -556,15 +622,22 @@
 					<a href="https://example.com">Open all project sites</a>
 				</div>
 				<div class="styled-div">
-					*The link will open several websites. Remember to turn off your pop-up blocker!
+					*This link will open several websites. Remember to turn off your pop-up blocker!
 				</div>
 			</div>
 			<div class="container"> 
 				<h1 class="section-title">Used Technologies</h1>
-				<div class="cloud-title">Cloud</div>
+				<div class="cloud-title">Application components</div>
+				<div class="cloud-text" style="padding-top: 30px;">· CI/CD was created using Jenkins pipelines.</div>
+				<div class="cloud-text">· Pushing to the repository triggers the building of a Docker image.</div>
+				<div class="cloud-text">· A test environment is created, and tests are executed in this environment.</div>	
+				<div class="cloud-text">· The proper image is pushed to the development environment by FLUX.</div>
 				<div class="scroll-container" style="text-align: center;">
 					<div class="scroll-list scroller" data-speed="fast" id="scroll-list" style="display: inline-flex; flex-wrap: nowrap;">
 						<ul class="scroller__inner">
+							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
+							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
+							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
 							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
 							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
 							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
@@ -575,7 +648,35 @@
 						</ul>
 					</div>
 				</div>
+				<div class="line-container">
+					<div class="linetxt"></div>
+					<div class="dot"></div>
+					<div class="linetxt"></div>
+				</div>
 				<div class="cloud-title">CI/CD</div>
+				<div class="cloud-text" style="padding-top: 30px;">· CI/CD was created using Jenkins pipelines.</div>
+				<div class="cloud-text">· Pushing to the repository triggers the building of a Docker image.</div>
+				<div class="cloud-text">· A test environment is created, and tests are executed in this environment.</div>	
+				<div class="cloud-text">· The proper image is pushed to the development environment by FLUX.</div>
+				<div class="scroll-container" style="text-align: center;">
+					<div class="scroll-list scroller" data-speed="fast" id="scroll-list" style="display: inline-flex; flex-wrap: nowrap;">
+						<ul class="scroller__inner">
+							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
+							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
+							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
+						</ul>
+					</div>
+				</div>
+				<div class="line-container">
+					<div class="linetxt"></div>
+					<div class="dot"></div>
+					<div class="linetxt"></div>
+				</div>
+				<div class="cloud-title">Infrastracture</div>
+				<div class="cloud-text" style="padding-top: 30px;">· CI/CD was created using Jenkins pipelines.</div>
+				<div class="cloud-text">· Pushing to the repository triggers the building of a Docker image.</div>
+				<div class="cloud-text">· A test environment is created, and tests are executed in this environment.</div>	
+				<div class="cloud-text">· The proper image is pushed to the development environment by FLUX.</div>
 				<div class="scroll-container" style="text-align: center;">
 					<div class="scroll-list scroller" data-speed="fast" id="scroll-list" style="display: inline-flex; flex-wrap: nowrap;">
 						<ul class="scroller__inner">
@@ -584,13 +685,72 @@
 							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
 							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
 							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
+						</ul>
+					</div>
+				</div>
+				<div class="line-container">
+					<div class="linetxt"></div>
+					<div class="dot"></div>
+					<div class="linetxt"></div>
+				</div>
+				<div class="cloud-title">Monitoring</div>
+				<div class="cloud-text" style="padding-top: 30px;">· CI/CD was created using Jenkins pipelines.</div>
+				<div class="cloud-text">· Pushing to the repository triggers the building of a Docker image.</div>
+				<div class="cloud-text">· A test environment is created, and tests are executed in this environment.</div>	
+				<div class="cloud-text">· The proper image is pushed to the development environment by FLUX.</div>
+				<div class="scroll-container" style="text-align: center;">
+					<div class="scroll-list scroller" data-speed="fast" id="scroll-list" style="display: inline-flex; flex-wrap: nowrap;">
+						<ul class="scroller__inner">
 							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
 							<li><img src="https://via.placeholder.com/150" alt="Placeholder Image"></li>
 						</ul>
+					</div>
+				</div>
+				<div class="line-container">
+					<div class="linetxt"></div>
+					<div class="dot"></div>
+					<div class="linetxt"></div>
+				</div>
+			</div>
+			<div class="container"> 
+				<h1 class="section-title">Github Repos</h1>
+				<div style="border: 2px solid #ffcc00; border-radius: 10px; margin: 10px;">
+					<div style="padding-bottom: 35px;"></div>
+					<div class="styled-div" style="font-size: 22px; padding: 8px;">
+						Repository with Infrastracture Setup
+					</div>
+					<div class="styled-div">
+						<a href="https://example.com">Open GitHub Infrastracture repo</a>
+					</div>
+				</div>
+				<div style="border: 2px solid #ffcc00; border-radius: 10px; margin: 10px;">
+					<div style="padding-bottom: 35px;"></div>
+					<div class="styled-div" style="font-size: 22px; padding: 8px;">
+						Repository with Jenkins Configuration Repository
+					</div>
+					<div class="styled-div">
+						<a href="https://example.com">Open GitHub Jenkins repo</a>
+					</div>
+				</div>
+				<div style="border: 2px solid #ffcc00; border-radius: 10px; margin: 10px;">
+					<div style="padding-bottom: 35px;"></div>
+					<div class="styled-div" style="font-size: 22px; padding: 8px;">
+						Repository with Frontend Repository
+					</div>
+					<div class="styled-div">
+						<a href="https://example.com">Open GitHub Frontend repo</a>
+					</div>
+				</div>
+				<div style="border: 2px solid #ffcc00; border-radius: 10px; margin: 10px;">
+					<div style="padding-bottom: 35px;"></div>
+					<div class="styled-div" style="font-size: 22px; padding: 8px;">
+						Repository with Backend Repository
+					</div>
+					<div class="styled-div">
+						<a href="https://example.com">Open GitHub Backend repo</a>
 					</div>
 				</div>
 			</div>
-
 			<div class="container">
 				<div class="header">
 					<h1 class="section-title">Authors</h1>
@@ -600,14 +760,24 @@
 						<div class="author" style="text-align: right;">
 							<img src="https://via.placeholder.com/100" alt="Jan Muszynski">
 							<div class="author-name"><h2>Bartosz G</h2></div>
-							<div class="author-role"><h3>Devops</h3></div>
+							<div class="author-role"><h3>Devops Engineer</h3></div>
+							<div class="author-description"><h4>Corobi</h4></div>
+							<div class="author-description"><h4>Corobiasdas</h4></div>
+							<div class="author-description"><h4>Corobiasdsad</h4></div>
+							<div class="author-description"><h4>Corobiasdas</h4></div>
+							<div class="author-description"><h4>Corobiasdasd</h4></div>
 						</div>
 					</div>
 					<div class="right-aut">
 						<div class="author" style="text-align: left;">
 							<img src="https://via.placeholder.com/100" alt="Jurek Masa">
 							<div class="author-name"><h2>Jakub G</h2></div>
-							<div class="author-role"><h3>Devops</h3></div>
+							<div class="author-role"><h3>Devops Engineer</h3></div>
+							<div class="author-description"><h4>Corobi</h4></div>
+							<div class="author-description"><h4>Corobiasdas</h4></div>
+							<div class="author-description"><h4>Corobiasdsad</h4></div>
+							<div class="author-description"><h4>Corobiasdas</h4></div>
+							<div class="author-description"><h4>Corobiasdasd</h4></div>
 						</div>
 					</div>
 				</div>
@@ -674,15 +844,43 @@
 
 					// Dodanie klasy wyłączającej przewijanie
 					body.classList.add('no-scroll');
+					loadingScreen.style.display = 'none';
+					content.style.display = 'flex';
+
 					// Ukryj ekran ładowania po 2 sekundach
 					setTimeout(function() {
-						loadingScreen.style.display = 'none';
-						content.style.display = 'flex';
+
 						body.classList.remove('no-scroll');
 					}, 2000); // 2000 milisekund = 2 sekundy
 				});
-				// Dodatkowo, przewinięcie na samą górę przy każdym przeładowaniu strony
-				window.onbeforeunload = function () {
+
+				document.addEventListener("DOMContentLoaded", () => {
+					// Przewinięcie na samą górę przy załadowaniu
+					window.scrollTo(0, 0);
+
+					// Dodanie klasy blokującej przewijanie
+					document.body.classList.add('no-scroll');
+
+					// Włączenie przewijania po 2 sekundach
+					setTimeout(() => {
+						document.body.classList.remove('no-scroll');
+					}, 2000);
+
+					// Zapobieganie przewijaniu do elementu
+					const preventScroll = (event) => {
+						event.preventDefault();
+						window.scrollTo(0, 0);
+					};
+
+					window.addEventListener('scroll', preventScroll);
+
+					// Usunięcie event listenera po 2 sekundach
+					setTimeout(() => {
+						window.removeEventListener('scroll', preventScroll);
+					}, 2000);
+				});
+
+				window.onbeforeunload = () => {
 					window.scrollTo(0, 0);
 				};
 			</script>
