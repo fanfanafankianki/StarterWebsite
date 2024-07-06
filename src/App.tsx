@@ -59,14 +59,6 @@ export default function App() {
             editor.updateInstanceState({ isFocusMode: false });
             window.scrollTo(0, 0);
           }}
-          style={{
-            height: '100%',
-            width: '100%',
-            minWidth: '100%', // Ensure minimum width to enable scrolling on smaller screens
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
         />
       </div>
     );
