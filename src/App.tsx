@@ -8,15 +8,10 @@ const jsonSnapshot = _jsonSnapshot as TLStoreSnapshot;
 const LOAD_SNAPSHOT_WITH_INITIAL_DATA = true;
 
 export default function App() {
-
   useEffect(() => {
-    // Dodanie klasy blokującej przewijanie
     document.body.classList.add('no-scroll');
-
-    // Przewinięcie na samą górę przy pierwszym renderowaniu
     window.scrollTo(0, 0);
 
-    // Włączenie przewijania po 2 sekundach
     const enableScroll = () => {
       document.body.classList.remove('no-scroll');
     };
@@ -24,13 +19,11 @@ export default function App() {
     setTimeout(enableScroll, 2000);
 
     return () => {
-      // Przywrócenie przewijania przy odmontowaniu komponentu
       enableScroll();
     };
   }, []);
 
   useEffect(() => {
-    // Przewinięcie na górę przy każdej zmianie komponentu
     const handleBeforeUnload = () => {
       window.scrollTo(0, 0);
     };
@@ -45,33 +38,39 @@ export default function App() {
   if (LOAD_SNAPSHOT_WITH_INITIAL_DATA) {
     return (
       <div style={{
-        height: '600px',
+        height: '100%',
         width: '100%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        margin: 'auto',
-        border: '4px solid #112240',
-        borderRadius: '10px',
-        backgroundColor: '#0a192f',
-        padding: '10px'
+        overflowX: 'auto', // Enable horizontal scrolling
+        overflowY: 'hidden', // Disable vertical scrolling
       }}>
         <Tldraw
           hideUi
           snapshot={jsonSnapshot}
           onMount={(editor) => {
             window.scrollTo(0, 0);
-            editor.setCurrentTool('laser');
+            const tool = window.innerWidth < 1200 && window.innerHeight < 740 ? 'hand' : 'laser';
+            editor.setCurrentTool(tool);
             editor.updateInstanceState({ isReadonly: true });
-            console.log("kozak");
-            editor.updateInstanceState({canMoveCamera: false})
-            editor.updateInstanceState({ isFocused: false })
-            editor.updateInstanceState({ isFocusMode: false})
+            editor.updateInstanceState({ canMoveCamera: false });
+            editor.updateInstanceState({ isFocused: false });
+            editor.updateInstanceState({ isFocusMode: false });
             window.scrollTo(0, 0);
+          }}
+          style={{
+            height: '100%',
+            width: '100%',
+            minWidth: '100%', // Ensure minimum width to enable scrolling on smaller screens
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         />
       </div>
     );
   }
 
+  return null;
 }
