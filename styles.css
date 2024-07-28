@@ -491,11 +491,6 @@ html, body {
     overflow-x: auto; /* Enable horizontal scrolling */
     overflow-y: hidden; /* Disable vertical scrolling */
 }
-@media (max-width: 940px) {
-    #tldraw-container {
-        height: 90vh; /* Zwiększ wysokość kontenera na mniejszych ekranach */
-    }
-}
 #root {
     min-width: 100%;
     height: 100%; /* 100% height of the container */

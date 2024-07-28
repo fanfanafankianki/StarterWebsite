@@ -51,12 +51,11 @@ export default function App() {
           snapshot={jsonSnapshot}
           onMount={(editor) => {
             window.scrollTo(0, 0);
-            const tool = window.innerWidth < 1200 && window.innerHeight < 740 ? 'hand' : 'laser';
-            editor.setCurrentTool(tool);
+            editor.setCurrentTool("hand");
             editor.updateInstanceState({ isReadonly: true });
-            editor.updateInstanceState({ canMoveCamera: false });
-            editor.updateInstanceState({ isFocused: false });
-            editor.updateInstanceState({ isFocusMode: false });
+            editor.updateInstanceState({ canMoveCamera: true });
+            editor.updateInstanceState({ isFocused: true });
+            editor.updateInstanceState({ isFocusMode: true });
             window.scrollTo(0, 0);
           }}
         />
